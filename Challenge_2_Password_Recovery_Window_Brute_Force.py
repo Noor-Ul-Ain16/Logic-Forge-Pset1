@@ -29,13 +29,15 @@ def password_recovery_window(log,pattern):
              temp=log[left]
              left+=1
              if temp in pattern:
-                 if not smallest_window or len(temp_window) < len(smallest_window):
-                     smallest_window = temp_window
-                 sliding_window[temp] -= 1
-                 if temp in pattern and sliding_window[temp] < pattern_frequency[temp]:
-                     conditions_met -= 1
-                 if conditions_met < len(pattern_frequency):
-                     break
+                  sliding_window[temp] -= 1
+                  if sliding_window[temp]!=pattern_frequency[temp]:
+                      conditions_met-=1
+                  if conditions_met!=len(pattern_frequency):
+                      if not smallest_window:
+                          smallest_window=temp_window
+                      if len(temp_window)<len(smallest_window) and smallest_window:
+                         smallest_window =temp_window
+                      break
              if left==right:
                       break
     if smallest_window:
